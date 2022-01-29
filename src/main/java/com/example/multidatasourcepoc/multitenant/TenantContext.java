@@ -1,6 +1,11 @@
 package com.example.multidatasourcepoc.multitenant;
 
 public class TenantContext {
+
+    public static final String DEFAULT_TENANT_ID = "0";
+    private TenantContext() {
+    }
+
     private static final ThreadLocal<String> currentTenant = new InheritableThreadLocal<>();
 
     public static String getCurrentTenant() {
@@ -12,6 +17,6 @@ public class TenantContext {
     }
 
     public static void clear() {
-        currentTenant.set(null);
+        currentTenant.remove();
     }
 }
