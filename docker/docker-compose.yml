@@ -1,0 +1,40 @@
+version: '3'
+services:
+  postgres_default:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_USER: dbuser
+  postgres1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_USER: dbuser
+  postgres2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_USER: dbuser
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres1
+      - postgres2
+      - postgres_default
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
